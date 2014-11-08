@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/com/base/engine/Animation.java=UTF-8
+encoding//src/com/base/engine/Frame.java=UTF-8
+encoding//src/com/base/engine/GameObject.java=UTF-8
+encoding//src/com/base/engine/Main.java=UTF-8
+encoding//src/com/base/engine/Physics.java=UTF-8
+encoding//src/com/base/engine/Sprite.java=UTF-8
+encoding//src/com/base/game/Game.java=UTF-8
+encoding//src/com/base/game/gameobject/Inventory.java=UTF-8
+encoding//src/com/base/game/gameobject/Player.java=UTF-8
+encoding//src/com/base/game/gameobject/Stats.java=UTF-8
+encoding//src/com/base/game/gameobject/item/Cube.java=UTF-8
+encoding//src/com/base/game/gameobject/item/Item.java=UTF-8
