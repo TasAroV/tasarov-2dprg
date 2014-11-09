@@ -1,8 +1,11 @@
 package com.base.game.gameobject;
 
+import static org.lwjgl.opengl.GL11.glTranslatef;
+
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
 
 import com.base.engine.GameObject;
 import com.base.game.Delay;
@@ -28,6 +31,9 @@ public class Player extends StatObject
 	private int facingDirection;
 	private int attackDamage;
 	
+	private int moveAmountX;
+	private int moveAmountY;
+	
 	public Player(float x, float y)
 	{
 		init(x, y, 0.1f, 1f, 0.25f, SIZE, SIZE, PLAYER_ID);
@@ -39,22 +45,47 @@ public class Player extends StatObject
 		attackDelay.terminate();
 		facingDirection = 0;
 		attackDamage = 1;
+		moveAmountX = 0;
+		moveAmountY = 0;
 	}
 	
 	@Override
 	public void update()
 	{
-		ArrayList<GameObject> objects = Game.rectangleCollide(x, y, x + SIZE, y + SIZE);
+		float newX = x + (float)moveAmountX;
+		float newY = y + (float)moveAmountY;
+		
+		moveAmountX = moveAmountY = 0;
+		
+		ArrayList<GameObject> objects = Game.rectangleCollide(newX, newY, newX + SIZE, newY + SIZE);
+		ArrayList<GameObject> items = new ArrayList<GameObject>();
+		
+		boolean move = true;
 		
 		for(GameObject go : objects)
 		{
 			if(go.getType() == ITEM_ID)
 			{
-				System.out.println("You just picked up " + ((Item)go).getName() + "!");
-				go.remove();
-				addItem((Item)go);
+				items.add(go);
 			}
+			if(go.getSolid())
+			{
+				move = false;
+			}
+			
 		}
+		
+		if(!move)
+			return;
+		
+		x = newX;
+		y = newY;
+		
+		/*
+			System.out.println("You just picked up " + ((Item)go).getName() + "!");
+			go.remove();
+			addItem((Item)go);
+		 */
 	}
 	
 	public void getInput()
@@ -139,6 +170,14 @@ public class Player extends StatObject
 		System.out.println(" : No target");
 	}
 	
+	@Override
+	public void render()
+	{
+		glTranslatef(Display.getWidth() / 2 - Player.SIZE / 2, Display.getHeight() / 2 - Player.SIZE / 2, 0);
+		spr.render();
+		glTranslatef(-x, -y, 0);
+	}
+	
 	private void move(float magX, float magY)
 	{
 		if(magX == 0 && magY == 1)
@@ -150,8 +189,11 @@ public class Player extends StatObject
 		if(magX == -1 && magY == 0)
 			facingDirection = RIGHT;
 		
-		x += getSpeed() * magX * Time.getDelta();
-		y += getSpeed() * magY * Time.getDelta();
+		/*moveAmountX = (int)(getSpeed() * magX * Time.getDelta());
+		moveAmountY = (int)(getSpeed() * magY * Time.getDelta());*/
+		
+		moveAmountX += getSpeed() * magX * Time.getDelta();
+		moveAmountY += getSpeed() * magY * Time.getDelta();
 	}
 	
 	public void addItem(Item item)

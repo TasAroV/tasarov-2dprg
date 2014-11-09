@@ -10,6 +10,7 @@ import com.base.engine.Physics;
 import com.base.game.gameobject.CookieMonster;
 import com.base.game.gameobject.Player;
 import com.base.game.gameobject.item.Cube;
+import com.base.game.gameobject.item.Wall;
 
 public class Game
 {
@@ -19,17 +20,46 @@ public class Game
 	private ArrayList<GameObject> remove;
 	private Player player;
 	
+	public void GenerateTestLevel()
+	{
+		objects.add(new Wall(200, 200, 1, 300));
+		objects.add(new Wall(500, 200, 1, 100));
+		objects.add(new Wall(500, 400, 1, 100));
+		objects.add(new Wall(200, 200, 300, 1));
+		objects.add(new Wall(200, 500, 100, 1));
+		objects.add(new Wall(400, 500, 100, 1));
+
+		objects.add(new Wall(300, 500, 1, 200));
+		objects.add(new Wall(400, 500, 1, 200));
+
+		objects.add(new Wall(200, 700, 100, 1));
+		objects.add(new Wall(400, 700, 100, 1));
+		objects.add(new Wall(200, 700, 1, 300));
+		objects.add(new Wall(500, 700, 1, 300));
+		objects.add(new Wall(200, 1000, 300, 1));
+
+		objects.add(new Wall(500, 300, 100, 1));
+		objects.add(new Wall(500, 400, 100, 1));
+		objects.add(new Wall(600, 200, 1, 100));
+		objects.add(new Wall(600, 400, 1, 100));
+		objects.add(new Wall(600, 200, 300, 1));
+		objects.add(new Wall(600, 500, 300, 1));
+		objects.add(new Wall(900, 200, 1, 300));
+	}
+	
 	public Game()
 	{
 		this.objects = new ArrayList<GameObject>();
 		this.remove = new ArrayList<GameObject>();
-		RPGRandom.initRand();
 		
 		this.player = new Player(Display.getWidth() / 2 - Player.SIZE / 2, Display.getHeight() / 2 - Player.SIZE / 2);
 		
 		this.objects.add(player);
-		objects.add(new Cube(32, 32));
-		objects.add(new CookieMonster(300, 500, 1));
+		GenerateTestLevel();
+//		objects.add(new Cube(32, 32));
+//		objects.add(new CookieMonster(300, 500, 1));
+//		objects.add(new Wall(200, 200, 1, 300));
+		
 	}
 	
 	public void getInput()

@@ -103,7 +103,7 @@ public class Main
 	{
 		try
 		{
-			Display.setDisplayMode(new DisplayMode(1280, 720));
+			Display.setDisplayMode(new DisplayMode(800, 600));
 			Display.create();
 			Keyboard.create();
 			Display.setVSyncEnabled(true);

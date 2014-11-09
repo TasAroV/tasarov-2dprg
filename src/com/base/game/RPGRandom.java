@@ -2,32 +2,43 @@ package com.base.game;
 
 import java.util.Random;
 
-public class RPGRandom
+public class RPGRandom extends Random
 {
-	private static Random rand;
+	private long[] state;
+	private int index;
 	
-	public static void initRand()
+	public RPGRandom(int seed)
 	{
-		rand = new Random();
+		state = new long[16];
+		index = 0;
+		
+		seed = Math.abs(seed);
+		
+		for(int i = 0; i < 16; i++)
+		{
+			state[i] = (seed + 1) * ((seed + 1) << 2) * i;
+		}
 	}
 	
-	public static int nextInt()
+	public RPGRandom()
 	{
-		return rand.nextInt();
+		this((int)System.currentTimeMillis());
 	}
 	
-	public static double nextDouble()
+	@Override
+	protected int next(int nbits)
 	{
-		return rand.nextDouble();
-	}
-	
-	public static int nextInt(int cap)
-	{
-		return (int)((rand.nextInt() / Integer.MAX_VALUE) * (double)cap);
-	}
-	
-	public static double nextDouble(double cap)
-	{
-		return rand.nextDouble() * cap;
+		long a, b, c, d;
+		a = state[index];
+		c = state[(index + 13) & 15];
+		b = a ^ c ^ (a << 16) ^ (c << 15);
+		c = state[(index + 9) & 15];
+		c ^= (c >> 11);
+		a = state[index] = b ^ c;
+		d = a ^ ((a << 15) & 0xDA442D24L);
+		index = (index + 15) & 15;
+		a = state[index];
+		state[index] = a ^ b ^ d ^ (a << 2) ^ (b << 18) ^ (c << 28);
+		return (int)state[index];
 	}
 }

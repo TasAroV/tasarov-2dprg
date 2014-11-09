@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public abstract class GameObject
 {
+	public static final int DEFAULTL_ID = 0;
 	public static final int ITEM_ID = 1;
 	public static final int PLAYER_ID = 2;
 	public static final int ENEMY_ID = 3;
@@ -13,7 +14,7 @@ public abstract class GameObject
 	protected int type;
 	protected Sprite spr;
 	
-	protected boolean[] flags = new boolean[1]; // 0 - remove
+	protected boolean[] flags = new boolean[2]; // 0 - remove, 1 - solid
 	
 	public void update()
 	{
@@ -63,6 +64,16 @@ public abstract class GameObject
 	public void remove()
 	{
 		flags[0] = true;
+	}
+	
+	public boolean getSolid()
+	{
+		return flags[1];
+	}
+	
+	public void setSolid(boolean val)
+	{
+		flags[1] = val;
 	}
 	
 	protected void init(float x, float y, float r, float g, float b, float sx, float sy, int type)

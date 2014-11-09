@@ -66,32 +66,32 @@ public class Stats
 	
 	public int getMaxHealth()
 	{
-		return (int)(getLevel() * scale.getStatScale(StatScale.VITALITY) * 10);
+		return (int)(getLevel() * scale.getScale(StatScale.VITALITY) * 10);
 	}
 	
 	public float getSpeed()
 	{
-		return (float)(getLevel() * scale.getStatScale(StatScale.SPEED) * 10);
+		return (float)(getLevel() * scale.getScale(StatScale.SPEED) * 10);
 	}
 	
 	public float getStrength()
 	{
-		return (float)(getLevel() * scale.getStatScale(StatScale.STRENGTH) * 10);
+		return (float)(getLevel() * scale.getScale(StatScale.STRENGTH) * 10);
 	}
 	
 	public float getPhysicalDefence()
 	{
-		return (float)(getLevel() * scale.getStatScale(StatScale.PHYSICAL_DEFENCE) * 10);
+		return (float)(getLevel() * scale.getScale(StatScale.PHYSICAL_DEFENCE) * 10);
 	}
 	
 	public float getMagic()
 	{
-		return (float)(getLevel() * scale.getStatScale(StatScale.MAGIC) * 10);
+		return (float)(getLevel() * scale.getScale(StatScale.MAGIC) * 10);
 	}
 	
 	public float getMagicDefence()
 	{
-		return (float)(getLevel() * scale.getStatScale(StatScale.MAGIC_DEFENSE) * 10);
+		return (float)(getLevel() * scale.getScale(StatScale.MAGIC_DEFENSE) * 10);
 	}
 	
 	public void addXp(float amt)
